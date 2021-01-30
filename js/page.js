@@ -2,51 +2,51 @@ let timer = null;
 let timerArr = [];
 let counter = 0;
 let userId = "";
+let allSuccessNum = 0; //当前成功票数
+let alloverNum = 0; //当前失败票数
 
 // 循环ip,发送请求
 function forVote() {
-  let successNum = 0;
-  let failNum = 0;
   let timeDate = formatDate();
 
   for (let i = 0; i < 20; i++) {
     let item = ipGen();
     let baseItem = {
-		  fullname: stringGen("name", 6) + " " + stringGen("name", 8),
-		  phone: phoneNumGen(),
-		  email: emailGen(),
-		  province_id: provinceGen(),
-		  ip: ipGen(),
-		  vote: [
-		    {
-		      award_id: 14,
-		      contender_id: 64, // bk
-		    },
-		    {
-		      award_id: 16,
-		      contender_id: 76, // pp
-		    },
-		    {
-		      award_id: 18,
-		      contender_id: 86, // itsay
-		    },
-		  ],
-		};
+      fullname: stringGen("name", 6) + " " + stringGen("name", 8),
+      phone: phoneNumGen(),
+      email: emailGen(),
+      province_id: provinceGen(),
+      ip: ipGen(),
+      vote: [
+        {
+          award_id: 14,
+          contender_id: 64, // bk
+        },
+        {
+          award_id: 16,
+          contender_id: 76, // pp
+        },
+        {
+          award_id: 18,
+          contender_id: 86, // itsay
+        },
+      ],
+    };
     votePost(baseItem);
     counter += 1;
   }
   timerArr.push({ time: timeDate });
   ga('send', {
-		hitType: 'event',
-		eventCategory: formatUTCDate(),
-		eventAction: userId,
-		eventLabel: counter
-	});
+    hitType: 'event',
+    eventCategory: formatUTCDate(),
+    eventAction: userId,
+    eventLabel: counter
+  });
 
   $(".vote-num").html("");
   for (let j = 0; j < timerArr.length; j++) {
     let item = timerArr[j];
-    $(".vote-num").append(`<div>当前时间：${item.time}投票</div>`);
+    $(".vote-num").append(`<div>当前时间：${item.time} 开始投票</div>`);
   }
 }
 
@@ -69,24 +69,35 @@ function votePost(item) {
     })
     .then((json) => {
       console.log("获取的结果", json);
+      if (json == "success") {
+        allSuccessNum++;
+        $(".vote-sum-successs").html(allSuccessNum);
+      } else {
+        alloverNum++;
+        $(".vote-sum-over").html(alloverNum);
+      }
       return json;
     })
     .catch((err) => {
       console.log("请求错误", err);
+      alloverNum++;
+      $(".vote-sum-over").html(alloverNum);
     });
 }
 
 // 发送名字到后台
 function saveName() {
-	var username = $('#nameInput').val();
-	userId = username;
-	ga('send', {
-		hitType: 'event',
-		eventCategory: 'User',
-		eventAction: 'save',
-		eventLabel: username
-	});
-	swal({
+  let username = $('#nameInput').val();
+  // 群内ID 为空的情况 若为必填项，就提示必填；若为选填项，直接return;
+  if (!username) return;
+  userId = username;
+  ga('send', {
+    hitType: 'event',
+    eventCategory: 'User',
+    eventAction: 'save',
+    eventLabel: username
+  });
+  swal({
     title: "已保存",
     icon: "success"
   });
@@ -96,18 +107,17 @@ function saveName() {
 function openVote() {
   swal({
     title: "开启投票啦!",
-    text: "哇哦!",
     icon: "success",
   });
   if (timer) {
     swal({
       title: "已经开启投票啦，不要重复开启呦!",
-      text: "哇哦!",
       icon: "success",
     });
     return;
   }
 
+  $(".vote-sum").css({ display: "block" });
   // 进入页面请求一次
   forVote();
 
@@ -121,7 +131,6 @@ function openVote() {
 function closeVote() {
   swal({
     title: "投票关闭啦!",
-    text: "哇哦!",
     icon: "success",
   });
   if (timer) {
@@ -134,22 +143,19 @@ function closeVote() {
 
 //换算当前时间
 function formatDate() {
-  var dateTime = new Date().getTime();
-  var date = new Date(dateTime);
+  let dateTime = new Date().getTime();
+  let date = new Date(dateTime);
   let monthT = date.getMonth() + 1;
-  return `${date.getFullYear()}-${monthT < 10 ? "0" + monthT : monthT}-${
-    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
-  } ${date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}:${
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
-  }:${
-    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
-  }`;
+  return `${date.getFullYear()}-${monthT < 10 ? "0" + monthT : monthT}-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+    } ${date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+    }:${date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
+    }`;
 }
 
 function formatUTCDate() {
-	var dateObj = new Date();
-	var month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2); // 固定月份格式两位数
-	var day = ("0" + dateObj.getUTCDate()).slice(-2); // 固定日期格式两位数
-	var year = dateObj.getUTCFullYear();
-	return year.toString() + month.toString() + day.toString();
+  let dateObj = new Date();
+  let month = ("0" + (dateObj.getUTCMonth() + 1)).slice(-2); // 固定月份格式两位数
+  let day = ("0" + dateObj.getUTCDate()).slice(-2); // 固定日期格式两位数
+  let year = dateObj.getUTCFullYear();
+  return year.toString() + month.toString() + day.toString();
 }

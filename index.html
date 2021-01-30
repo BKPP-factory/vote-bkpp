@@ -3,21 +3,29 @@
   <head>
     <!-- Google Analytics -->
     <script>
-      (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-          (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
         a.async = 1;
         a.src = g;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-      ga('create', 'UA-150354610-5', 'auto'); // 后台数据统计，已修改为KCL项目
-      // Modifications: 
-      ga('set', 'checkProtocolTask', null); // Disables file protocol checking.
-      ga('send', 'pageview', '/vote-kcl');
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+      ga("create", "UA-150354610-5", "auto"); // 后台数据统计，已修改为KCL项目
+      // Modifications:
+      ga("set", "checkProtocolTask", null); // Disables file protocol checking.
+      ga("send", "pageview", "/vote-kcl");
     </script>
     <!-- End Google Analytics -->
     <meta charset="utf-8" />
@@ -26,8 +34,14 @@
       content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
     />
     <title>vote</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/vote-page.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/vote-page.css" />
+    <link rel="stylesheet" href="css/vote-rewrite-other.css" />
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/sweetAlert.min.js"></script>
@@ -37,25 +51,46 @@
   </head>
   <body>
     <div class="vote-box">
-      <div class="id-input row">
-        <div class="col-9">
-          <div class="input-group input-group-sm mb-3">
-            <span id="nameLabel" class="label">群内ID：</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="nameInput" style="font-size: 14px;" placeholder="输入群ID以便后台统计">
-            <span id="nameMsg"></span>
+      <div class="vote-top">
+        <div class="id-input row vote-input-box">
+          <div class="col-9">
+            <div class="input-group input-group-sm">
+              <span id="nameLabel" class="label">群内ID：</span>
+              <input
+                type="text"
+                class="form-control vote-input"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                id="nameInput"
+                style="font-size: 14px"
+                placeholder="输入群ID以便后台统计"
+              />
+              <span id="nameMsg"></span>
+            </div>
+          </div>
+          <div class="col-3 vote-btn-box">
+            <button
+              type="button"
+              id="saveName"
+              class="btn btn-dark btn-sm"
+              onclick="saveName()"
+            >
+              保存 🌺
+            </button>
           </div>
         </div>
-        <div class="col-3">
-          <button type="button" id="saveName" class="btn btn-dark btn-sm" onclick="saveName()">
-            保存
-          </button>
+        <div class="vote">
+          <div class="vote-open" onclick="openVote()">开启投票 🥥 💙 🌺</div>
+          <div class="vote-close" onclick="closeVote()">关闭投票 🌺 💙 🥥</div>
+        </div>
+        <div class="vote-sum">
+          当前 成功投票：<span class="vote-sum-successs">0</span>
+          票，失败投票：<span class="vote-sum-over">0</span> 票
         </div>
       </div>
-      <div class="vote">
-        <div class="vote-open" onclick="openVote()">开启投票</div>
-        <div class="vote-close" onclick="closeVote()">关闭投票</div>
-      </div>
+
       <div class="vote-num"></div>
+      <div class="vote-from">©2021 BKPP_CHNVotingFactory</div>
     </div>
   </body>
 </html>

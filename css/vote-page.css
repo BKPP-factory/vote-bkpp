@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   height: 100%;
@@ -7,33 +8,60 @@ html, body {
 .vote-box {
   height: 100%;
   width: 100%;
-  background: url("../img/bkpp-bc.png") no-repeat center bottom;
+  background: url("../img/bkpp-g.jpg") no-repeat center bottom;
   background-size: cover;
+}
+.vote-top {
+  height: 30%;
+  padding: 30px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .vote {
   display: flex;
   justify-content: space-between;
-  padding: 30px;
-  align-items: center;
-  height: 50%;
+  align-items: flex-end;
+  /* height: 100%; */
 }
 .vote-open {
-  background: #fff;
+  background-image: linear-gradient(
+    to right,
+    rgba(100, 149, 237),
+    rgba(255, 182, 193)
+  );
   border-radius: 4px;
   height: 30px;
   line-height: 30px;
   padding: 0 10px;
+  cursor: pointer;
+  overflow: hidden;
 }
 .vote-close {
-  background: #fff;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 182, 193),
+    rgba(100, 149, 237)
+  );
   border-radius: 4px;
   height: 30px;
   line-height: 30px;
   padding: 0 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.vote-sum {
+  font-size: 14px;
+  /* color: #FFC0CB; */
+  color: #00ffff;
+  text-align: center;
+  padding-top: 10px;
+  display: none;
 }
 .vote-num {
   display: block;
-  height: calc(50% - 30px);
+  height: calc(70% - 60px);
   overflow-y: auto;
   font-size: 12px;
   color: #fff;
@@ -41,9 +69,75 @@ html, body {
   overflow: scroll;
   margin-bottom: 20px;
 }
-.id-input {
-  padding: 20px 10px;
+.vote-from {
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
 }
+@media (max-width: 370px) {
+  .vote-top {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media (max-width: 370px) {
+  .vote-top {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+@media (min-width: 500px) {
+  .vote-top {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+@media (min-width: 800px) {
+  .vote-top {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+@media (min-width: 1000px) {
+  .vote-top {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+  .vote-num {
+    font-size: 14px;
+  }
+}
+.id-input {
+  /* padding: 20px 10px; */
+}
+
+/* 群内ID */
+.vote-input-box {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  height: 30px;
+  line-height: 30px;
+}
+
+/* 取消高亮 */
+.form-control:focus {
+  border-color: #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.vote-input,
+.vote-btn-box button {
+  border-radius: 4px !important;
+}
+
+.vote-btn-box {
+  text-align: right;
+}
+
 #nameMsg {
   color: green;
   margin-left: 5px;
