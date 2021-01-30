@@ -47,7 +47,14 @@ function provinceGen() {
 }
 
 function ipGen() {
-	return {
-    	ip: "1.46." + Math.floor(Math.random() * 256) + "." + Math.floor(Math.random() * 256)
-	}
+	var ip_ranges = [
+		"1." + numberGen(46, 47) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"49." + numberGen(228, 231) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"58." + numberGen(8, 11) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"110." + numberGen(168, 171) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"118." + numberGen(172, 175) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"125." + numberGen(24, 27) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
+		"171." + numberGen(4, 7) + "." + numberGen(0, 255) + "." + numberGen(0, 255)
+	]
+	return ip_ranges[numberGen(0, ip_ranges.length - 1)];
 }

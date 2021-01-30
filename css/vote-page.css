@@ -1,0 +1,50 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.vote-box {
+  height: 100%;
+  width: 100%;
+  background: url("../img/bkpp-bc.png") no-repeat center bottom;
+  background-size: cover;
+}
+.vote {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  align-items: center;
+  height: 50%;
+}
+.vote-open {
+  background: #fff;
+  border-radius: 4px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+.vote-close {
+  background: #fff;
+  border-radius: 4px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+.vote-num {
+  display: block;
+  height: calc(50% - 30px);
+  overflow-y: auto;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+.id-input {
+  padding: 20px 10px;
+}
+#nameMsg {
+  color: green;
+  margin-left: 5px;
+}
