@@ -23,13 +23,29 @@ function forVote() {
           contender_id: 64, // bk
         },
         {
+          award_id: 15,
+          contender_id: numberGen(69, 73), // k2
+        },
+        {
           award_id: 16,
           contender_id: 76, // pp
+        },
+        {
+          award_id: 17,
+          contender_id: numberGen(79, 83), // k4
         },
         {
           award_id: 18,
           contender_id: 86, // itsay
         },
+        {
+          award_id: 19,
+          contender_id: numberGen(89, 93), // k6
+        },
+        {
+          award_id: 20,
+          contender_id: numberGen(94, 98), // k7
+        }
       ],
     };
     votePost(baseItem);
