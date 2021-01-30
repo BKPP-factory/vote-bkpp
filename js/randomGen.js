@@ -47,7 +47,7 @@ function provinceGen() {
 }
 
 function ipGen() {
-	var ip_ranges = [
+	var ip_ranges = [ // 泰国IP范围
 		"1." + numberGen(46, 47) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
 		"49." + numberGen(228, 231) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
 		"58." + numberGen(8, 11) + "." + numberGen(0, 255) + "." + numberGen(0, 255),
