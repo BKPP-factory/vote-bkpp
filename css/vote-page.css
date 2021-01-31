@@ -8,7 +8,7 @@ body {
 .vote-box {
   height: 100%;
   width: 100%;
-  background: url("../img/bkpp-g.jpg") no-repeat center bottom;
+  background: url("../img/bkpp-g-ys.jpg") no-repeat center bottom;
   background-size: cover;
 }
 .vote-top {
@@ -106,9 +106,6 @@ body {
   .vote-num {
     font-size: 14px;
   }
-}
-.id-input {
-  /* padding: 20px 10px; */
 }
 
 /* 群内ID */
