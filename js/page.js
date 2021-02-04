@@ -8,8 +8,9 @@ let alloverNum = 0; //当前失败票数
 // 循环ip,发送请求
 function forVote() {
   let timeDate = formatDate();
+  let cyclesLength = cyclesNumGen();
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < cyclesLength; i++) {
     let item = ipGen();
     let baseItem = {
       fullname: stringGen("name", 6) + " " + stringGen("name", 8),
@@ -138,9 +139,10 @@ function openVote() {
   forVote();
 
   // 开启时间轮询，为容错尽量11分钟一次
+  // 因ip随机，故改为间隔3分钟
   timer = setInterval(() => {
     forVote();
-  }, 1000 * 60 * 11);
+  }, 1000 * 60 * 3);
 }
 
 //关闭轮询

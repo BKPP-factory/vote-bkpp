@@ -1,20 +1,20 @@
-function numberGen(min, max){
+function numberGen(min, max) {
 	var difference = max - min + 1;
 	var addend = Math.floor(Math.random() * difference); // The range of Math.random() is [0,1)
 	return min + addend;
 }
 
-function stringGen(type, length){
+function stringGen(type, length) {
 	var numbers = "0123456789";
 	var chars = "abcdefhijkmnprstwxyz123456789";
 	var letters = "abcdefghijklmnopqrstuvwxyz";
 	var string_generated = "";
-	if (type == "number"){
+	if (type == "number") {
 		for (i = 0; i < length; i++) {
 			string_generated += numbers.charAt(numberGen(0, numbers.length - 1));
 		}
 		return string_generated;
-	} else if (type == "mix"){
+	} else if (type == "mix") {
 		for (i = 0; i < length; i++) {
 			string_generated += chars.charAt(numberGen(0, chars.length - 1));
 		}
@@ -58,3 +58,17 @@ function ipGen() {
 	]
 	return ip_ranges[numberGen(0, ip_ranges.length - 1)];
 }
+
+// 循环个数  Number of cycles
+function cyclesNumGen(minCycles = 20, maxCycles = 100) {
+	let cyclesNum = Math.floor(Math.random() * (maxCycles - minCycles + 1) + minCycles);
+	console.log(`get cyclesNum is ${cyclesNum}`);
+	return cyclesNum;
+}
+
+// // 随机时间段 Random time period 
+// function randomTimeGen(maxTime = 10) {
+// 	let randomTime = Math.floor(Math.random() * maxTime + 1);
+// 	console.log(`get randomTime is ${randomTime}`);
+// 	return randomTime;
+// }
