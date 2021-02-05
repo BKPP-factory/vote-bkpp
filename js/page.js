@@ -4,11 +4,29 @@ let counter = 0;
 let userId = "";
 let allSuccessNum = 0; //当前成功票数
 let alloverNum = 0; //当前失败票数
+const speedMap = {
+  1: {'min': 500, 'max': 2000},
+  2: {'min': 100, 'max': 500},
+  3: {'min': 10, 'max': 100}
+}
+const batchMap = {
+  1: {'min': 20, 'max': 50},
+  2: {'min': 50, 'max': 75},
+  3: {'min': 75, 'max': 100}
+}
 
 // 循环ip,发送请求
-function forVote() {
+async function forVote() {
+  let speed = speedMap[$('#speed_slider').val()];
+  let batchNum = batchMap[$('#batch_slider').val()];
   let timeDate = formatDate();
-  let cyclesLength = cyclesNumGen();
+  let cyclesLength = cyclesNumGen(batchNum['min'], batchNum['max']);
+  timerArr.push({ time: timeDate });
+  $(".vote-num").html("");
+  for (let j = 0; j < timerArr.length; j++) {
+    let item = timerArr[j];
+    $(".vote-num").append(`<div>当前时间：${item.time} 开始投票</div>`);
+  }
 
   for (let i = 0; i < cyclesLength; i++) {
     let item = ipGen();
@@ -49,10 +67,11 @@ function forVote() {
         }
       ],
     };
+    await new Promise(resolve => setTimeout(resolve, numberGen(speed['min'], speed['max']))); // 随机间隔时间
     votePost(baseItem);
     counter += 1;
   }
-  timerArr.push({ time: timeDate });
+  
   ga('send', {
     hitType: 'event',
     eventCategory: formatUTCDate(),
@@ -60,11 +79,6 @@ function forVote() {
     eventLabel: counter
   });
 
-  $(".vote-num").html("");
-  for (let j = 0; j < timerArr.length; j++) {
-    let item = timerArr[j];
-    $(".vote-num").append(`<div>当前时间：${item.time} 开始投票</div>`);
-  }
 }
 
 // fetch 发送请求 【json】
@@ -142,7 +156,7 @@ function openVote() {
   // 因ip随机，故改为间隔3分钟
   timer = setInterval(() => {
     forVote();
-  }, 1000 * 60 * 3);
+  }, numberGen(1000, 3000) * 60);
 }
 
 //关闭轮询
